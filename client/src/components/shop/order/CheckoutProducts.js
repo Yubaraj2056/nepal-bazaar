@@ -6,6 +6,8 @@ import { subTotal, quantity, totalCost } from "../partials/Mixins";
 import { cartListProduct } from "../partials/FetchApi";
 import { getBrainTreeToken, getPaymentProcess } from "./FetchApi";
 import { fetchData, fetchbrainTree, pay } from "./Action";
+import validator from 'validator' 
+
 
 import DropIn from "braintree-web-drop-in-react";
 
@@ -23,6 +25,8 @@ export const CheckoutComponent = (props) => {
     clientToken: null,
     instance: {},
   });
+
+  const [error,setError] = useState("");
 
   useEffect(() => {
     fetchData(cartListProduct, dispatch);
@@ -48,7 +52,7 @@ export const CheckoutComponent = (props) => {
             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
           ></path>
         </svg>
-        Please wait untill finish
+        Please wait until finish
       </div>
     );
   }
@@ -100,18 +104,20 @@ export const CheckoutComponent = (props) => {
                     </label>
                     <input
                       value={state.phone}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         setState({
                           ...state,
                           phone: e.target.value,
                           error: false,
                         })
                       }
-                      type="number"
+                      }
+                      type="tel"
                       id="phone"
                       className="border px-4 py-2"
                       placeholder="+880"
                     />
+                    {error && <div className="text-red">{error}</div>}
                   </div>
                   <DropIn
                     options={{
@@ -124,21 +130,33 @@ export const CheckoutComponent = (props) => {
                   />
                   <div
                     onClick={(e) =>
-                      pay(
-                        data,
-                        dispatch,
-                        state,
-                        setState,
-                        getPaymentProcess,
-                        totalCost,
-                        history
-                      )
+                       {
+                        setError("")
+                        const isValidPhoneNumber = validator.isMobilePhone(state.phone);
+
+                        if (isValidPhoneNumber) {
+                          pay(
+                            data,
+                            dispatch,
+                            state,
+                            setState,
+                            getPaymentProcess,
+                            totalCost,
+                            history
+                          )
+                        }
+                        else {
+                          setError("Invalid phone number")
+                        }
+                       }
+                   
                     }
                     className="w-full px-4 py-2 text-center text-white font-semibold cursor-pointer"
                     style={{ background: "#303031" }}
                   >
                     Pay now
                   </div>
+
                 </div>
               </Fragment>
             ) : (
