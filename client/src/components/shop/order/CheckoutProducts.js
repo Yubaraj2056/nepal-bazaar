@@ -117,7 +117,6 @@ export const CheckoutComponent = (props) => {
                       className="border px-4 py-2"
                       placeholder="+880"
                     />
-                    {error && <div className="text-red">{error}</div>}
                   </div>
                   <DropIn
                     options={{
@@ -146,7 +145,7 @@ export const CheckoutComponent = (props) => {
                           )
                         }
                         else {
-                          setError("Invalid phone number")
+                          setState((state)=> ({...state,error:"Phone number is invalid"}))
                         }
                        }
                    
