@@ -8,6 +8,13 @@
   transition: opacity 0.2s;
 }
 
+.product-image {
+  height: 300px;
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

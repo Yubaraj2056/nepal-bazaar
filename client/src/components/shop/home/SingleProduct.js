@@ -56,16 +56,54 @@ const SingleProduct = (props) => {
       </div>
     );
   }
+
+  function sortProductsByRating(products) {
+    for (let i = 0; i < products.length - 1; i++) {
+      let maxIndex = i;
+      let maxRating = getProductAverageRating(products[i]);
+  
+      for (let j = i + 1; j < products.length; j++) {
+        const rating = getProductAverageRating(products[j]);
+  
+        if (rating > maxRating) {
+          maxIndex = j;
+          maxRating = rating;
+        }
+      }
+  
+      if (maxIndex !== i) {
+        const temp = products[i];
+        products[i] = products[maxIndex];
+        products[maxIndex] = temp;
+      }
+    }
+  
+    return products;
+  }
+  
+  function getProductAverageRating(product) {
+    if (product.pRatingsReviews && product.pRatingsReviews.length > 0) {
+      const ratings = product.pRatingsReviews.map((review) => parseInt(review.rating));
+      const sum = ratings.reduce((total, rating) => total + rating, 0);
+      return sum / ratings.length;
+    }
+    return 0;
+  }
+
+  const sortedProducts = sortProductsByRating(products??[]);
+
+
+
   return (
     <Fragment>
-      {products && products.length > 0 ? (
-        products.map((item, index) => {
+      {sortedProducts && sortedProducts.length > 0 ? (
+        sortedProducts.map((item, index) => {
           return (
             <Fragment key={index}>
-              <div className="relative col-span-1 m-2">
+              <div className="relative col-span-1 m-4">
                 <img
                   onClick={(e) => history.push(`/products/${item._id}`)}
-                  className="w-full object-cover object-center cursor-pointer"
+                  className="product-image w-full  cursor-pointer"
                   src={`${apiURL}/uploads/products/${item.pImages[0]}`}
                   alt=""
                 />

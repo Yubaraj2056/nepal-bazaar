@@ -115,7 +115,7 @@ export const CheckoutComponent = (props) => {
                       type="tel"
                       id="phone"
                       className="border px-4 py-2"
-                      placeholder="+880"
+                      placeholder="+977"
                     />
                   </div>
                   <DropIn
