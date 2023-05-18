@@ -12,7 +12,7 @@ const HomeComponent = () => {
     <Fragment>
       <Slider />
       {/* Category, Search & Filter Section */}
-      <section className="m-4 md:mx-8 md:my-6">
+      <section id="product-category" className="m-4 md:mx-8 md:my-6">
         <ProductCategory />
       </section>
       {/* Product Section */}

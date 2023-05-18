@@ -41,10 +41,6 @@ const CategoryList = () => {
                   }
                   className="col-span-1 m-2 flex flex-col items-center justify-center space-y-2 cursor-pointer"
                 >
-                  <img
-                    src={`${apiURL}/uploads/categories/${item.cImage}`}
-                    alt="pic"
-                  />
                   <div className="font-medium">{item.cName}</div>
                 </div>
               </Fragment>

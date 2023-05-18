@@ -110,9 +110,7 @@ const OrderMenu = (props) => {
               </span>
             </div>
           </div>
-          <div>
-            <SearchFilter />
-          </div>
+         
         </div>
         {/*<AddCategoryModal/>*/}
         <UpdateOrderModal />
