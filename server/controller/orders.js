@@ -1,4 +1,5 @@
 const orderModel = require("../models/orders");
+const productModel = require("../models/products");
 
 class Order {
   async getAllOrders(req, res) {
@@ -27,6 +28,7 @@ class Order {
           .populate("allProduct.id", "pName pImages pPrice")
           .populate("user", "name email")
           .sort({ _id: -1 });
+
         if (Order) {
           return res.json({ Order });
         }
@@ -59,10 +61,18 @@ class Order {
         });
         let save = await newOrder.save();
         if (save) {
+          for (const product of allProduct){
+            await productModel.findOneAndUpdate(  { _id: product.id, pQuantity: { $gt: 0 } },
+              {
+              $inc: { pQuantity: -(product.quantitiy || 1) },
+            })
+          }
+          console.log("done")
           return res.json({ success: "Order created successfully" });
         }
-      } catch (err) {
-        return res.json({ error: error });
+      } catch (error) {
+        console.log(error,'error')
+        return res.json({ error });
       }
     }
   }

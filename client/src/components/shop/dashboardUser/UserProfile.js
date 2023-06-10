@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import Layout from "./Layout";
 import { DashboardUserContext } from "./Layout";
 import { updatePersonalInformationAction } from "./Action";
+import validator from 'validator' 
 
 const ProfileComponent = () => {
   const { data, dispatch } = useContext(DashboardUserContext);
@@ -28,7 +29,10 @@ const ProfileComponent = () => {
   }, [userDetails]);
 
   const handleSubmit = () => {
-    updatePersonalInformationAction(dispatch, fData);
+    const isValidPhoneNumber = validator.isMobilePhone(fData.phone);
+
+    if (isValidPhoneNumber)
+      updatePersonalInformationAction(dispatch, fData);
   };
 
   if (data.loading) {

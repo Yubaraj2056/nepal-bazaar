@@ -99,9 +99,7 @@ const Login = (props) => {
               Remember me<span className="text-sm text-gray-600">*</span>
             </label>
           </div>
-          <a className="block text-gray-600" href="/">
-            Lost your password?
-          </a>
+     
         </div>
         <div
           onClick={(e) => formSubmit()}

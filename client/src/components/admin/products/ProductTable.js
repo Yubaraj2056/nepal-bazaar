@@ -127,7 +127,11 @@ const AllProduct = (props) => {
 const ProductTable = ({ product, deleteProduct, editProduct }) => {
   return (
     <Fragment>
-      <tr>
+      <tr style={{
+        backgroundColor: `${product.pQuantity===0 ? "red":""}`,
+        color: `${product.pQuantity===0 ? "white":""}`,
+
+      }} >
         <td className="p-2 text-left">
           {product.pName.length > 15
             ? product.pDescription.substring(1, 15) + "..."

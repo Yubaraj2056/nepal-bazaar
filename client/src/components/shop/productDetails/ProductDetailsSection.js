@@ -94,6 +94,7 @@ const ProductDetailsSection = (props) => {
   } else if (!sProduct) {
     return <div>No product</div>;
   }
+
   return (
     <Fragment>
       <Submenu
@@ -363,7 +364,7 @@ const ProductDetailsSection = (props) => {
                 {/* Quantity Button End */}
               </div>
               {/* Incart and out of stock button */}
-              {sProduct.pQuantity !== 0 ? (
+              {sProduct.pQuantity !== 0 && sProduct.pStatus!=="Disabled" ? (
                 <Fragment>
                   {layoutData.inCart !== null &&
                   layoutData.inCart.includes(sProduct._id) === true ? (
@@ -410,7 +411,8 @@ const ProductDetailsSection = (props) => {
                       disabled={true}
                       className="px-4 py-2 text-white opacity-50 cursor-not-allowed text-center uppercase"
                     >
-                      Out of stock
+                      {sProduct.pStatus==="Disabled" ? "Inactive":"Out of Stock"}
+                    
                     </div>
                   )}
                 </Fragment>
