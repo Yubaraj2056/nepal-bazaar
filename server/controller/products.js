@@ -41,6 +41,21 @@ class Product {
     }
   }
 
+  async recommendBasedOnCategory(req, res) {
+    try {
+      let Products = await productModel
+        .find({ pCategory: req.body.category })
+        .populate("pCategory", "_id cName")
+        .sort({ _id: -1 })
+        .limit(5)
+      if (Products) {
+        return res.json({ Products });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async postAddProduct(req, res) {
     let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
       req.body;

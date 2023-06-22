@@ -19,6 +19,7 @@ router.post("/product-by-category", productController.getProductByCategory);
 router.post("/product-by-price", productController.getProductByPrice);
 router.post("/wish-product", productController.getWishProduct);
 router.post("/cart-product", productController.getCartProduct);
+router.post("/recommendation", productController.recommendBasedOnCategory)
 
 router.post("/add-product", upload.any(), productController.postAddProduct);
 router.post("/edit-product", upload.any(), productController.postEditProduct);
